@@ -1,0 +1,54 @@
+<div class="logger logger--sign-up flex flex--j-center">
+    <div class="logger__container__background"></div>
+    <div class="logger__container__main">
+        <h1>Report a crime</h1>
+        <p>Sign up to report on what you witnessed.</p>
+        <div class="error-container" style="margin-top: 1rem;" id="resident-sign-up-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <form class="card logger__container__main__form" id="res-sign-up-form">
+            <div class="card__header card__header--no-border">
+                <h1>Sign up.</h1>
+            </div>
+            <div class="card__body">
+                <div class="input-wrapper">
+                    <label for="res-first-name">First name</label>
+                    <input type="text" id="res-first-name" class="input-wrapper__input" placeholder="Mike">
+                </div>
+                <div class="input-wrapper">
+                    <label for="res-last-name">Last name</label>
+                    <input type="text" id="res-last-name" class="input-wrapper__input" placeholder="Miers">
+                </div>
+                <div class="input-wrapper">
+                    <label for="res-email-address">Email address</label>
+                    <input type="email" id="res-email-address" class="input-wrapper__input" placeholder="miers@gmail.com">
+                </div>
+                <div class="input-wrapper">
+                    <label for="res-password">Password</label>
+                    <input type="password" id="res-password" class="input-wrapper__input" placeholder="@IloveCats123">
+                </div>
+                <div class="input-wrapper">
+                    <label for="res-con-password">Password confirmation</label>
+                    <input type="password" id="res-con-password" class="input-wrapper__input" placeholder="@IloveCats123">
+                </div>
+            </div>
+            <div class="card__footer card__footer--no-border">
+                <button type="submit" class="btn btn--primary">Sign up.</button>
+            </div>
+        </form>
+        <nav class="logger__container__main__footer">
+            <ul class="flex flex--j-space-around">
+                <li><a href="/sign-in">Have an account?</a></li>
+                <li>Terms and conditions</li>
+                <li>Privacy policy</li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script>
+    const targetPage = 'res-sign-up';
+</script>

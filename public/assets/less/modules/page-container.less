@@ -1,0 +1,43 @@
+.page-container{
+    &__main{
+        flex: 1;
+        padding-top: 5rem;
+
+        &--nav-closed{
+            margin-left: 5rem;
+        }
+
+        &__page-title{
+            padding: 0 3rem;
+            padding-bottom: 1rem;
+            background-color: #f9f9f9;
+        }
+
+        &__page-nav{
+            padding: 0 3rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #eee;
+            background-color: #f9f9f9;
+
+            &__ul{
+                &__item{
+                    padding: 1rem 1.4rem;
+                    border-top: 2px solid transparent;
+                    border-bottom: 2px solid transparent;
+                    margin-bottom: -1px;
+                    color: @gray__color__50;
+
+                    &--active{
+                        color: @primary__color__600;
+                        border-bottom-color: @primary__color__500;
+                    }
+                }
+            }
+        }
+
+        &__padded{
+            margin: 2rem 14%;
+            margin-bottom: 3rem;
+        }
+    }
+}

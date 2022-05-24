@@ -1,0 +1,27 @@
+.checkbox{
+    &__label{
+        position: relative;
+        display: block;
+        width: 1.6rem;
+        height: 1.6rem;
+        border: 2px solid #b4b4b4;
+        border-radius: 2px;
+    }
+
+    &__input:checked + &__label{
+        border-color: @primary__color__500;
+        
+        &::after{
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 2px;
+            background-color: @primary__color__500;
+        }
+    }
+}

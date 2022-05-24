@@ -1,0 +1,43 @@
+<div class="logger  flex flex--j-center">
+    <div class="logger__container__background"></div>
+    <div class="logger__container__main">
+        <h1>Report a crime</h1>
+        <p>Sign in to report on what you witnessed.</p>
+        <div class="error-container" style="margin-top: 1rem;" id="resident-sign-in-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <form class="card logger__container__main__form"  id="res-sign-in-form">
+            <div class="card__header card__header--no-border">
+                <h1>Sign in.</h1>
+            </div>
+            <div class="card__body">
+                <div class="input-wrapper">
+                    <label for="res-email-address">Email address</label>
+                    <input type="text" id="res-email-address" class="input-wrapper__input" placeholder="johndoe@gmail.com">
+                </div>
+                <div class="input-wrapper">
+                    <label for="res-password">Password</label>
+                    <input type="password" id="res-password" class="input-wrapper__input" placeholder="123">
+                    <p class="logger__container__main__form__forgot-pass">Forgot?</p>
+                </div>
+            </div>
+            <div class="card__footer card__footer--no-border">
+                <button type="submit" class="btn btn--primary">Sign in.</button>
+            </div>
+        </form>
+        <nav class="logger__container__main__footer">
+            <ul class="flex flex--j-space-around">
+                <li><a href="/sign-up">No account?</a></li>
+                <li>Terms and conditions</li>
+                <li>Privacy policy</li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script>
+    const targetPage = 'res-sign-in';
+</script>

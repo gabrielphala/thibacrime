@@ -1,0 +1,47 @@
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+
+    label{
+        font-family: @poppins-medium;
+    }
+
+    &__input{
+        padding: .7rem 1.4rem;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        font-size: 1.5rem;
+        background-color: #f4f4f4;
+
+        &:focus{
+            background-color: #ffffff;
+        }
+    }
+}
+
+.side-label-input{
+    margin-bottom: 1.6rem;
+    
+    &--type-1{
+        label{
+            flex: 0 0 20rem;
+        }
+    }
+
+    label {
+        margin-right: 1rem;
+        color: #6c6b6b;
+    }
+
+    .input-wrapper {
+        flex: 1;
+    }
+}
+
+.twin-inputs{
+    margin-bottom: 1.6rem;
+    
+    .input-wrapper{
+        flex: 0 0 49%;
+    }
+}

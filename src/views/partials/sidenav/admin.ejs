@@ -1,0 +1,53 @@
+<div class="sidenav sidenav--closed flex flex--j-space-between">
+    <div class="sidenav__top">
+        <div class="sidenav__top__item flex flex--a-center">
+            <div class="sidenav__top__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#menu"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="sidenav__top__item <% if (page.title == 'Police stations') { %> sidenav__top__item--active <% } %> flex flex--a-center">
+            <a href="/a/police-station" class="sidenav__top__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#file"></use>
+                </svg>
+            </a>
+            <div class="sidenav__top__item__link-text">
+                <a href="/a/police-station">Police stations</a>
+            </div>
+        </div>
+        <div class="sidenav__top__item <% if (page.title == 'Residents') { %> sidenav__top__item--active <% } %> flex flex--a-center">
+            <a href="/a/residents" class="sidenav__top__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#file"></use>
+                </svg>
+            </a>
+            <div class="sidenav__top__item__link-text">
+                <a href="/a/residents">Residents</a>
+            </div>
+        </div>
+        <div class="sidenav__top__item <% if (page.title == 'Reports') { %> sidenav__top__item--active <% } %> flex flex--a-center">
+            <a href="/a/reports" class="sidenav__top__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#file"></use>
+                </svg>
+            </a>
+            <div class="sidenav__top__item__link-text">
+                <a href="/a/reports">Reports</a>
+            </div>
+        </div>
+    </div>
+    <div class="sidenav__bottom">
+        <div class="sidenav__bottom__item flex flex--a-center">
+            <a href="/a/logout" class="sidenav__bottom__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#sign-out"></use>
+                </svg>
+            </a>
+            <div class="sidenav__bottom__item__link-text">
+                <a href="/a/logout">Sign out</a>
+            </div>
+        </div>
+    </div>
+</div>

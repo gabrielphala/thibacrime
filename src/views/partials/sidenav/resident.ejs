@@ -1,0 +1,43 @@
+<div class="sidenav sidenav--closed flex flex--j-space-between">
+    <div class="sidenav__top">
+        <div class="sidenav__top__item flex flex--a-center">
+            <div class="sidenav__top__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#menu"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="sidenav__top__item sidenav__top__item--active flex flex--a-center">
+            <a href="/r/<%= residentInfo.firstname + residentInfo.lastname %>" class="sidenav__top__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#file"></use>
+                </svg>
+            </a>
+            <div class="sidenav__top__item__link-text">
+                <a href="/r/<%= residentInfo.firstname + residentInfo.lastname %>">Reports</a>
+            </div>
+        </div>
+    </div>
+    <div class="sidenav__bottom">
+        <!-- <div class="sidenav__bottom__item flex flex--a-center">
+            <div class="sidenav__bottom__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#settings"></use>
+                </svg>
+            </div>
+            <div class="sidenav__bottom__item__link-text">
+                <p>Settings</p>
+            </div>
+        </div> -->
+        <div class="sidenav__bottom__item flex flex--a-center">
+            <a href="/r/logout" class="sidenav__bottom__item__icon flex flex--j-center">
+                <svg class="image--icon">
+                    <use href="#sign-out"></use>
+                </svg>
+            </a>
+            <div class="sidenav__bottom__item__link-text">
+                <a href="/r/logout">Sign out</a>
+            </div>
+        </div>
+    </div>
+</div>

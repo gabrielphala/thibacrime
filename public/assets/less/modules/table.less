@@ -1,0 +1,110 @@
+.table{
+    .last-cell{
+        text-align: end;
+    }
+
+    .table-row{
+        display: flex;
+        align-items: center;
+        padding: .3rem 2rem;
+    }
+
+    .table-cell{
+        flex: 1;
+        padding: .7rem 0;
+        font-size: 1.3rem;
+    }
+
+    .short{
+        flex: 0 0 8rem !important;
+    }
+
+    &__header{
+        &__row{
+            .table-row;
+
+            border-bottom: 1px solid #eee;
+
+            &__item{
+                .table-cell;
+
+                font-family: @poppins-medium;
+                color: #6d6d6d;
+            }
+        }
+    }
+
+    &__body{
+        &__row{
+            .table-row;
+            position: relative;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:hover .hoverActions {
+                visibility: visible;
+            }
+
+            &:hover a{
+                color: #7da0bc;
+            }
+
+            &:nth-child(even){
+                background-color: #f9f9f9;
+            }
+
+            &:hover {
+                .table__body__row__item--tools {
+                    display: flex;
+                }
+            }
+
+            &__item{
+                .table-cell;
+
+                color: #929292;
+
+                input{
+                    background-color: transparent;
+                    width: 100%;
+                    border: none;
+                    color: #929292;
+                    text-align: right;
+
+                    &:focus{
+                        box-shadow: none;
+                        border: none;
+                    }
+                }
+
+                &--tools{
+                    display: none;
+                    right: 2rem;
+                    background-color: #fff;
+
+                    span:not(:last-child){
+                        margin-right: 1rem;
+                    }
+
+                    .table__body__row__item__edit svg{
+                        fill: #777;
+                    }
+
+                    .table__body__row__item__delete svg{
+                        fill: #c85050;
+                    }
+                }
+
+                &--image{
+                    &__back{
+                        width: 3rem;
+                        height: 3rem;
+                        margin-right: 1rem;
+                    }
+                }
+            }            
+        }
+    }
+}

@@ -1,0 +1,42 @@
+<div class="page-container">
+    <%- include('../partials/sidenav/admin') %>
+        
+    <div class="page-container__main page-container__main--nav-closed">
+        <%- include('../partials/header/admin') %>
+
+        <div class="page-container__main__page-title">
+            <h1>Reports</h1>
+        </div>
+
+        <nav class="page-container__main__page-nav">
+            <ul class="page-container__main__page-nav__ul flex flex--a-center">
+                <li class="page-container__main__page-nav__ul__item">All</li>
+            </ul>
+        </nav>
+
+        <div class="page-container__main__padded">
+            <div class="search" style="margin-bottom: 2rem;">
+                <div class="input-wrapper">
+                    <input type="text" id="admin-identifier" class="input-wrapper__input" placeholder="Search">
+                </div>
+            </div>
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item short">#</li>
+                        <li class="table__header__row__item">Crime reported</li>
+                        <li class="table__header__row__item">Reported by</li>
+                        <li class="table__header__row__item">Police station</li>
+                        <li class="table__header__row__item">Status</li>
+                        <li class="table__header__row__item last-cell">Report date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="reports"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const targetPage = 'admin-reports';
+</script>

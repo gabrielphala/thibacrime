@@ -1,0 +1,104 @@
+<div class="page-container">
+    <%- include('../partials/sidenav/police') %>
+        
+    <div class="page-container__main page-container__main--nav-closed">
+        <%- include('../partials/header/police') %>
+
+        <div class="page-container__main__page-title">
+            <h1>Reports</h1>
+        </div>
+
+        <nav class="page-container__main__page-nav">
+            <ul class="page-container__main__page-nav__ul flex flex--a-center">
+                <li class="page-container__main__page-nav__ul__item">Search</li>
+                <li class="page-container__main__page-nav__ul__item">Pending</li>
+            </ul>
+        </nav>
+
+        <div class="page-container__main__padded">
+            <div class="search" style="margin-bottom: 2rem;">
+                <div class="input-wrapper">
+                    <input type="text" id="admin-identifier" class="input-wrapper__input" placeholder="Search">
+                </div>
+            </div>
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item short">#</li>
+                        <li class="table__header__row__item">Crime</li>
+                        <li class="table__header__row__item">Reported By</li>
+                        <li class="table__header__row__item">Status</li>
+                        <li class="table__header__row__item last-cell">Report date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="reported-crimes"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--closed flex--a-start flex--j-center" id="crime-report-modal">
+    <div class="modal__main" id="res-report-form" style="margin-top: -2rem;">
+        <div class="modal__main__header flex flex--a-center flex--j-space-between">
+            <div>
+                <h1>Crime report.</h1>
+            </div>
+            <svg class="icon svg close-modal" data-modal="crime-report">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="error-container error-container--pad" id="crime-report-modal-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <div class="modal__main__body modal__main__body--short" style="padding: 1.4rem 2rem;">
+            <input type="hidden" id="report-id">
+            <p>Crime: <span id="crime-type" style="margin-left: 1rem;">HH</span></p>
+            <p>Reported by: <span id="crime-reporter" style="margin-left: 1rem;">HH</span></p>
+        </div>
+        <div id="map" style="width: 100%; height: 30rem;"></div>
+        <div class="modal__main__footer flex">
+            <button class="btn btn--primary" id="report-investigate">Accept</button>
+            <button class="btn btn--cancel" id="report-decline">Decline</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const targetPage = 'police-reports';
+
+    function calculateRoute (origin, destination) {
+        const myLatlng = { lat: -25.4834, lng: 28.1068 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: myLatlng,
+        });
+
+        const directionsService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer();
+
+        directionsDisplay.setMap(map);
+
+        const request = {
+            origin,
+            destination,
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.IMEPRIAL
+        };
+
+        directionsService.route(request, (result, status) => {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(result);
+
+                return;
+            }
+
+            directionsDisplay.setDirections({routes: []});
+
+            map.setCenter(myLatlng);
+        })
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCExDeX8n3rl2wwEKVuL1XoKLSzyWq33HU"></script>

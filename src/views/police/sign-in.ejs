@@ -1,0 +1,43 @@
+<div class="logger  flex flex--j-center">
+    <div class="logger__container__background"></div>
+    <div class="logger__container__main">
+        <h1>Manage crime reports</h1>
+        <p>Sign in to manage witness reports.</p>
+        <div class="error-container" style="margin-top: 1rem;" id="police-man-sign-in-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <form class="card logger__container__main__form" id="police-sign-in-form">
+            <div class="card__header card__header--no-border">
+                <h1>Sign in.</h1>
+            </div>
+            <div class="card__body">
+                <div class="input-wrapper">
+                    <label for="police-email-address">Email address</label>
+                    <input type="text" id="police-email-address" class="input-wrapper__input" placeholder="johndoe@gmail.com">
+                </div>
+                <div class="input-wrapper">
+                    <label for="police-password">Password</label>
+                    <input type="password" id="police-password" class="input-wrapper__input" placeholder="1234">
+                    <p class="logger__container__main__form__forgot-pass">Forgot?</p>
+                </div>
+            </div>
+            <div class="card__footer card__footer--no-border">
+                <button type="submit" class="btn btn--primary">Sign in.</button>
+            </div>
+        </form>
+        <nav class="logger__container__main__footer">
+            <ul class="flex flex--j-space-around">
+                <li>No account?</li>
+                <li>Terms and conditions</li>
+                <li>Privacy policy</li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<script>
+    const targetPage = 'police-sign-in';
+</script>

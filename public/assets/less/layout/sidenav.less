@@ -1,0 +1,47 @@
+.sidenav{
+    position: fixed;
+    height: 100%;
+    flex-direction: column;
+    padding: .5rem 0;
+    background-color: #091812; //#efefef;
+    overflow: hidden;
+
+    &--closed{
+        width: 5rem;
+    }
+
+    &__top__item__profile{
+        flex: 0 0 5rem;
+    }
+
+    &__top, &__bottom{
+        &__item{
+            height: 4rem;
+            padding: 1px;
+
+            &--active{
+                .sidenav__top__item__icon, .sidenav__bottom__item__icon{
+                    border-left-color: @primary__color__500;
+                    
+                    svg{
+                        fill: @primary__color__500;
+                    }
+                }
+            }
+
+            &__icon{
+                flex: 0 0 5rem;
+                border-left: 2px solid transparent;
+                border-right: 2px solid transparent;
+
+                svg{
+                    fill: #c2c2c2//#ababab;
+                }
+            }
+
+            &__link-text{
+                color: @gray__color__100;
+            }
+        }
+    }
+}

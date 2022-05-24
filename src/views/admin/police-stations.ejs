@@ -1,0 +1,182 @@
+<div class="page-container">
+    <%- include('../partials/sidenav/admin') %>
+        
+    <div class="page-container__main page-container__main--nav-closed">
+        <%- include('../partials/header/admin') %>
+
+        <div class="page-container__main__page-title">
+            <h1>Police Stations</h1>
+        </div>
+
+        <nav class="page-container__main__page-nav">
+            <ul class="page-container__main__page-nav__ul flex flex--a-center">
+                <li class="page-container__main__page-nav__ul__item">All</li>
+            </ul>
+        </nav>
+
+        <div class="page-container__main__padded">
+            <div class="search" style="margin-bottom: 2rem;">
+                <div class="input-wrapper">
+                    <input type="text" id="admin-identifier" class="input-wrapper__input" placeholder="Search">
+                </div>
+            </div>
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item short">#</li>
+                        <li class="table__header__row__item">Name</li>
+                        <li class="table__header__row__item">Address</li>
+                        <li class="table__header__row__item last-cell">Register date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="registered-police-stations"></div>
+            </div>
+            <button class="btn btn--primary open-modal" style="margin-top: 2rem;" id="new-police-station-btn" data-modal="new-police-station">New Police station</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--closed flex--a-start flex--j-center" id="new-police-station-modal">
+    <form class="modal__main" id="admin-police-station-form" style="margin-top: -3.5rem;">
+        <div class="modal__main__header flex flex--a-center flex--j-space-between">
+            <div>
+                <h1>New Police station.</h1>
+            </div>
+            <svg class="icon svg close-modal" data-modal="new-police-station">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="error-container error-container--pad" id="new-police-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <div class="modal__main__body modal__main__body--short" style="padding: 1.4rem 2rem;">
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="police-station-name">Police station name</label>
+                    <input type="text" id="police-station-name" class="input-wrapper__input" placeholder="Soshanguve police station">
+                </div>
+                <div class="input-wrapper">
+                    <label for="police-station-address">Police station address</label>
+                    <input type="text" id="police-station-address" class="input-wrapper__input" placeholder="Soshanguve, LKK">
+                </div>
+            </div>
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="pol-admin-first-name">Administrator first name</label>
+                    <input type="text" id="pol-admin-first-name" class="input-wrapper__input" placeholder="John">
+                </div>
+                <div class="input-wrapper">
+                    <label for="pol-admin-last-name">Administrator last name</label>
+                    <input type="text" id="pol-admin-last-name" class="input-wrapper__input" placeholder="Doe">
+                </div>
+            </div>
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="pol-admin-email">Administrator email address</label>
+                    <input type="text" id="pol-admin-email" class="input-wrapper__input" placeholder="johndoe@gmail.com">
+                </div>
+            </div>
+        </div>
+        <div id="map" style="width: 100%; height: 30rem;"></div>
+        <div class="modal__main__footer flex">
+            <button class="btn btn--primary">Add police station</button>
+        </div>
+    </form>
+</div>
+
+<div class="modal modal--closed flex--a-start flex--j-center" id="edit-police-station-modal">
+    <form class="modal__main" id="edit-admin-police-station-form" style="margin-top: -3.5rem;">
+        <div class="modal__main__header flex flex--a-center flex--j-space-between">
+            <div>
+                <h1>Edit Police station.</h1>
+            </div>
+            <svg class="icon svg close-modal" data-modal="edit-police-station">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="error-container error-container--pad" id="edit-police-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <div class="modal__main__body modal__main__body--short" style="padding: 1.4rem 2rem;">
+            <input type="hidden" id="edit-police-station-id">
+            <input type="hidden" id="edit-police-man-id">
+
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="edit-police-station-name">Police station name</label>
+                    <input type="text" id="edit-police-station-name" class="input-wrapper__input"
+                        placeholder="Soshanguve police station">
+                </div>
+                <div class="input-wrapper">
+                    <label for="edit-police-station-address">Police station address</label>
+                    <input type="text" id="edit-police-station-address" class="input-wrapper__input"
+                        placeholder="Soshanguve, LKK">
+                </div>
+            </div>
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="edit-pol-admin-first-name">Administrator first name</label>
+                    <input type="text" id="edit-pol-admin-first-name" class="input-wrapper__input" placeholder="John">
+                </div>
+                <div class="input-wrapper">
+                    <label for="edit-pol-admin-last-name">Administrator last name</label>
+                    <input type="text" id="edit-pol-admin-last-name" class="input-wrapper__input" placeholder="Doe">
+                </div>
+            </div>
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="edit-pol-admin-email">Administrator email address</label>
+                    <input type="text" id="edit-pol-admin-email" class="input-wrapper__input"
+                        placeholder="johndoe@gmail.com">
+                </div>
+            </div>
+        </div>
+        <div class="modal__main__footer flex">
+            <button class="btn btn--primary">Edit police station</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const targetPage = 'admin-police-stations';
+    let targetPoliceStation;
+
+    function initMap () {
+        const myLatlng = { lat: -25.4834, lng: 28.1068 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: myLatlng,
+        });
+        // Create the initial InfoWindow.
+        let infoWindow = new google.maps.InfoWindow({
+            content: "Click the map to get Lat/Lng!",
+            position: myLatlng,
+        });
+
+        infoWindow.open(map);
+        // Configure the click listener.
+        map.addListener("click", (mapsMouseEvent) => {
+            // Close the current InfoWindow.
+            infoWindow.close();
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+            });
+            infoWindow.setContent(
+                JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+            );
+            infoWindow.open(map);
+
+            targetPoliceStation = mapsMouseEvent.latLng;
+        });
+    }
+
+    window.initMap = initMap;
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCExDeX8n3rl2wwEKVuL1XoKLSzyWq33HU&callback=initMap"></script>

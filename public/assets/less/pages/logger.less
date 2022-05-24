@@ -1,0 +1,48 @@
+.logger{
+    &--sign-up{
+        .logger__container__main{
+            margin-top: 3rem;
+        }
+    }
+
+    &__container{
+        &__background{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 50vh;
+            background-color: #f9f9f9;
+            z-index: 0;
+        }
+
+        &__main{
+            position: relative;
+            margin-top: 10rem;
+            z-index: 1;
+            
+            &__form{
+                margin-top: 2rem;
+                min-width: 40rem;
+
+                .input-wrapper{
+                    position: relative;
+
+                    &:not(:last-child){
+                        margin-bottom: 1.4rem;
+                    }
+                }
+
+                &__forgot-pass{
+                    position: absolute;
+                    right: 1.4rem;
+                    top: 2.8rem;
+                }
+            }
+
+            &__footer{
+                margin-top: 2rem;
+            }
+        }
+    }
+}

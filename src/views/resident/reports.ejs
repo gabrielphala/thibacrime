@@ -1,0 +1,113 @@
+<div class="page-container">
+    <%- include('../partials/sidenav/resident') %>
+        
+    <div class="page-container__main page-container__main--nav-closed">
+        <%- include('../partials/header/resident') %>
+
+        <div class="page-container__main__page-title">
+            <h1>Reports</h1>
+        </div>
+
+        <nav class="page-container__main__page-nav">
+            <ul class="page-container__main__page-nav__ul flex flex--a-center">
+                <li class="page-container__main__page-nav__ul__item">Search</li>
+                <li class="page-container__main__page-nav__ul__item">Pending</li>
+            </ul>
+        </nav>
+
+        <div class="page-container__main__padded">
+            <div class="search" style="margin-bottom: 2rem;">
+                <div class="input-wrapper">
+                    <input type="text" id="admin-identifier" class="input-wrapper__input" placeholder="Search">
+                </div>
+            </div>
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item short">#</li>
+                        <li class="table__header__row__item">Crime</li>
+                        <li class="table__header__row__item">Police station</li>
+                        <li class="table__header__row__item">Status</li>
+                        <li class="table__header__row__item last-cell">Report date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="reported-crimes"></div>
+            </div>
+            <button class="btn btn--primary open-modal" style="margin-top: 2rem;" id="new-report-btn" data-modal="new-report">New report</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--closed flex--a-start flex--j-center" id="new-report-modal">
+    <form class="modal__main" id="res-report-form" style="margin-top: -2rem;">
+        <div class="modal__main__header flex flex--a-center flex--j-space-between">
+            <div>
+                <h1>New report.</h1>
+            </div>
+            <svg class="icon svg close-modal" data-modal="new-report">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="error-container error-container--pad" id="new-report-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <div class="modal__main__body modal__main__body--short" style="padding: 1.4rem 2rem;">
+            <input type="file" id="report-files" multiple hidden>
+            <div class="input-wrapper">
+                <label for="crime-witnessed">Type of crime witnessed</label>
+                <input type="text" id="crime-witnessed" class="input-wrapper__input" placeholder="Murder.">
+            </div>
+            <div class="input-wrapper" style="margin-top: 1.6rem;">
+                <label for="description-of-events">Recount what happend</label>
+                <textarea id="description-of-events" class="input-wrapper__input" placeholder="Well... this other man in a green shirt shot this other guy 50 times.. :)"></textarea>
+            </div>
+        </div>
+        <div id="map" style="width: 100%; height: 30rem;"></div>
+        <div class="modal__main__footer flex">
+            <button class="btn btn--primary">Submit report</button>
+            <label class="btn btn--cancel" for="report-files">Add file</label>
+            <p id="file-attachment-status"></p>
+        </div>
+    </form>
+</div>
+
+<script>
+    const targetPage = 'res-reports';
+    let targetCrimeScene;
+
+    function initMap () {
+        const myLatlng = { lat: -25.4834, lng: 28.1068 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 10,
+            center: myLatlng,
+        });
+        // Create the initial InfoWindow.
+        let infoWindow = new google.maps.InfoWindow({
+            content: "Click the map to get Lat/Lng!",
+            position: myLatlng,
+        });
+
+        infoWindow.open(map);
+        // Configure the click listener.
+        map.addListener("click", (mapsMouseEvent) => {
+            // Close the current InfoWindow.
+            infoWindow.close();
+            // Create a new InfoWindow.
+            infoWindow = new google.maps.InfoWindow({
+                position: mapsMouseEvent.latLng,
+            });
+            infoWindow.setContent(
+                JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+            );
+            infoWindow.open(map);
+
+            targetCrimeScene = mapsMouseEvent.latLng;
+        });
+    }
+
+    window.initMap = initMap;
+</script>
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCExDeX8n3rl2wwEKVuL1XoKLSzyWq33HU&callback=initMap"></script>
