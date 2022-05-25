@@ -37,17 +37,26 @@ class ReportAuth {
     static async getResidentReports () {
         const response = await fetch('/reports/fetch/resident');
 
+        if (!response.reports || response.reports && response.reports.length == 0)
+            $('#no-reports').show()
+
         return formatResidentReports(response.reports);
     };
 
     static async getPoliceReports () {
         const response = await fetch('/reports/fetch/police');
 
+        if (!response.reports || response.reports && response.reports.length == 0)
+            $('#no-reports').show()
+
         return formatPoliceReports(response.reports);
     };
 
     static async getAdminReports () {
         const response = await fetch('/reports/fetch/all');
+
+        if (!response.reports || response.reports && response.reports.length == 0)
+            $('#no-reports').show()
 
         return formatAdminReports(response.reports);
     };

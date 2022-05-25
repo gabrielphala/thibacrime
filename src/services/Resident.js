@@ -70,6 +70,12 @@ class ResidentServices {
             return Resident.getAllResidents();
         } catch (e) { throw e; }
     };
+
+    static async deleteResident (residentId) {
+        try {
+            return Resident.delete(residentId);
+        } catch (e) { throw e; }
+    };
 };
 
 module.exports = ResidentServices;

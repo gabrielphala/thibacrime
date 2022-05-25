@@ -7,6 +7,7 @@ class Resident extends Model {
             lastname: { type: String, required: true },
             email: { type: String, required: true },
             password: { type: String, required: true },
+            isDeleted: { type: Boolean, default: false },
             createdAt: { type: Date, default: Date.now }
         });
 
@@ -19,6 +20,7 @@ class Resident extends Model {
     });
 
     getAllResidents = (select = '') => this.model.find({
+        condition: { isDeleted: false },
         select
     });
 };

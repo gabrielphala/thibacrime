@@ -69,6 +69,16 @@ class ResidentController {
             return response;
         }, res);
     });
+
+    deleteResident = (deleteResident) => (async (req, res) => {
+        await this._resWrap(async (response) => {
+            await deleteResident(req.params.residentId);
+
+            response.successful = true;
+
+            return response;
+        }, res);
+    });
 };
 
 module.exports = ResidentController;

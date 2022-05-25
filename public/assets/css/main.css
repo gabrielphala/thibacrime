@@ -335,9 +335,13 @@ li {
 .page-container__main {
   flex: 1;
   padding-top: 5rem;
+  transition: 0.3s margin;
 }
 .page-container__main--nav-closed {
   margin-left: 5rem;
+}
+.page-container__main--nav-open {
+  margin-left: 25rem;
 }
 .page-container__main__page-title {
   padding: 0 3rem;
@@ -451,15 +455,26 @@ li {
   height: 3rem;
   margin-right: 1rem;
 }
+.empty {
+  margin-top: 2rem;
+}
+.empty h4,
+.empty p {
+  text-align: center;
+}
 .main-header {
   position: fixed;
   top: 0;
   height: 5rem;
   padding: 0 3rem;
   background-color: #f9f9f9;
+  transition: 0.3s width;
 }
 .main-header--nav-closed {
   width: calc(100% - 5rem);
+}
+.main-header--nav-open {
+  width: calc(100% - 25rem);
 }
 .main-header--shadow {
   background-color: #fcfcfc;
@@ -504,9 +519,13 @@ li {
   padding: 0.5rem 0;
   background-color: #091812;
   overflow: hidden;
+  transition: 0.3s width;
 }
 .sidenav--closed {
   width: 5rem;
+}
+.sidenav--open {
+  width: 25rem;
 }
 .sidenav__top__item__profile {
   flex: 0 0 5rem;

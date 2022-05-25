@@ -44,7 +44,19 @@ class ResidentAuth {
     static async getAdminResidents () {
         const response = await fetch('/residents/fetch/all');
 
+        console.log(response.residents);
+
+        if (!response.residents || response.residents && response.residents.length == 0)
+            $('#no-residents').show()
+
         return formatAdminResidents(response.residents);
+    };
+
+    static async deleteResident (residentId) {
+        const response = await fetch(`/resident/${residentId}/delete`);
+
+        if (response.successful)
+            return location.reload(true);
     };
 }
 

@@ -1,3 +1,5 @@
+import { getStaticDate } from "./date";
+
 export const formatPoliceStations = (policeStations) => {
     let formated = '', index = 1;
 
@@ -7,7 +9,7 @@ export const formatPoliceStations = (policeStations) => {
                 <li class="table__body__row__item short">${index}</li>
                 <li class="table__body__row__item">${policeStation.name}</li>
                 <li class="table__body__row__item">${policeStation.address}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${getStaticDate(new Date(policeStation.createdAt))}</li>
                 <li class="table__body__row__item table__body__row__item--tools pos--abs pos--vertical">
                     <span class="table__body__row__item__edit">
                         <svg class="image--icon">
@@ -39,7 +41,7 @@ export const formatResidentReports = (reports) => {
                 <li class="table__body__row__item">${report.typeOfCrime}</li>
                 <li class="table__body__row__item">${report.assignedPoliceStation.name}</li>
                 <li class="table__body__row__item">${report.statusForResident}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${getStaticDate(new Date(report.createdAt))}</li>
             </ul>
         `;
 
@@ -59,7 +61,7 @@ export const formatPoliceReports = (reports) => {
                 <li class="table__body__row__item">${report.typeOfCrime}</li>
                 <li class="table__body__row__item">${report.resident.firstname +' '+ report.resident.lastname}</li>
                 <li class="table__body__row__item">${report.statusForPolice}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${getStaticDate(new Date(report.createdAt))}</li>
             </ul>
         `;
 
@@ -79,7 +81,14 @@ export const formatAdminResidents = (residents) => {
                 <li class="table__body__row__item">${resident.firstname}</li>
                 <li class="table__body__row__item">${resident.lastname}</li>
                 <li class="table__body__row__item">${resident.email}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${getStaticDate(new Date(resident.createdAt))}</li>
+                <li class="table__body__row__item table__body__row__item--tools pos--abs pos--vertical">
+                    <span class="table__body__row__item__delete">
+                        <svg class="image--icon">
+                            <use href="#cancel"></use>
+                        </svg>
+                    </span>
+                </li>
             </ul>
         `;
 
@@ -101,7 +110,7 @@ export const formatAdminReports = (reports) => {
                 <li class="table__body__row__item">${report.resident.firstname + ' ' + report.resident.lastname}</li>
                 <li class="table__body__row__item">${report.assignedPoliceStation.name}</li>
                 <li class="table__body__row__item">${report.statusForPolice}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${getStaticDate(new Date(report.createdAt))}</li>
             </ul>
         `;
 

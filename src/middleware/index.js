@@ -8,6 +8,27 @@ class Middleware {
         return Middleware.instance;
     };
 
+    authAdmin = (req, res, next) => {
+        if (!req.adminInfo) 
+            return res.redirect('/a/sign-in');
+
+        next();
+    }
+
+    authResident = (req, res, next) => {
+        if (!req.residentInfo)
+            return res.redirect('/sign-in');
+
+        next();
+    }
+
+    authPolice = (req, res, next) => {
+        if (!req.policeInfo)
+            return res.redirect('/p/sign-in');
+
+        next();
+    }
+
     loadResidentInfo = (req, res, next) => {
         if (!req.cookies || req.cookies && !req.cookies['_resident'])
             return next();

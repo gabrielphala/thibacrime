@@ -70,8 +70,6 @@ class PoliceStation {
 
         if (response.successful)
             return location.reload(true);
-
-        showError('edit-police-error', response.error);
     };
 
     static async getPoliceStationDetails (policeId) {
@@ -82,6 +80,9 @@ class PoliceStation {
 
     static async getPoliceStations () {
         const response = await fetch('/police-stations/fetch');
+
+        if (!response.policeStations || response.policeStations && response.policeStations.length == 0)
+            $('#no-police-stations').show()
 
         return formatPoliceStations(response.policeStations);
     }

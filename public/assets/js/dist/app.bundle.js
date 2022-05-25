@@ -166,7 +166,6 @@ class PoliceStation {
   static async deletePoliceStation(policeId) {
     const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])(`/police-station/${policeId}/delete`);
     if (response.successful) return location.reload(true);
-    (0,_helpers_show_error__WEBPACK_IMPORTED_MODULE_1__["default"])('edit-police-error', response.error);
   }
 
   static async getPoliceStationDetails(policeId) {
@@ -176,6 +175,7 @@ class PoliceStation {
 
   static async getPoliceStations() {
     const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])('/police-stations/fetch');
+    if (!response.policeStations || response.policeStations && response.policeStations.length == 0) $('#no-police-stations').show();
     return (0,_helpers_format__WEBPACK_IMPORTED_MODULE_2__.formatPoliceStations)(response.policeStations);
   }
 
@@ -233,16 +233,19 @@ class ReportAuth {
 
   static async getResidentReports() {
     const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])('/reports/fetch/resident');
+    if (!response.reports || response.reports && response.reports.length == 0) $('#no-reports').show();
     return (0,_helpers_format__WEBPACK_IMPORTED_MODULE_2__.formatResidentReports)(response.reports);
   }
 
   static async getPoliceReports() {
     const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])('/reports/fetch/police');
+    if (!response.reports || response.reports && response.reports.length == 0) $('#no-reports').show();
     return (0,_helpers_format__WEBPACK_IMPORTED_MODULE_2__.formatPoliceReports)(response.reports);
   }
 
   static async getAdminReports() {
     const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])('/reports/fetch/all');
+    if (!response.reports || response.reports && response.reports.length == 0) $('#no-reports').show();
     return (0,_helpers_format__WEBPACK_IMPORTED_MODULE_2__.formatAdminReports)(response.reports);
   }
 
@@ -321,7 +324,14 @@ class ResidentAuth {
 
   static async getAdminResidents() {
     const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])('/residents/fetch/all');
+    console.log(response.residents);
+    if (!response.residents || response.residents && response.residents.length == 0) $('#no-residents').show();
     return (0,_helpers_format__WEBPACK_IMPORTED_MODULE_1__.formatAdminResidents)(response.residents);
+  }
+
+  static async deleteResident(residentId) {
+    const response = await (0,_helpers_fetch__WEBPACK_IMPORTED_MODULE_0__["default"])(`/resident/${residentId}/delete`);
+    if (response.successful) return location.reload(true);
   }
 
 }
@@ -438,6 +448,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (async () => {
   if (!targetPage || targetPage != 'admin-residents') return;
   $('#residents').html(await _auth_Resident__WEBPACK_IMPORTED_MODULE_0__["default"].getAdminResidents());
+  $('.table__body__row__item__delete').on('click', async e => {
+    const residentId = e.currentTarget.parentElement.parentElement.dataset.residentid;
+    await _auth_Resident__WEBPACK_IMPORTED_MODULE_0__["default"].deleteResident(residentId);
+  });
 });
 
 /***/ }),
@@ -484,6 +498,28 @@ __webpack_require__.r(__webpack_exports__);
   (0,_admin__WEBPACK_IMPORTED_MODULE_0__["default"])();
   (0,_resident__WEBPACK_IMPORTED_MODULE_1__["default"])();
   (0,_police__WEBPACK_IMPORTED_MODULE_2__["default"])();
+  $('.sidenav__top__item__icon--toggle-menu').on('click', e => {
+    const sidenav = $('.sidenav'),
+          container = $('.page-container__main'),
+          header = $('.main-header');
+
+    if (Array.from(sidenav[0].classList).includes('sidenav--closed')) {
+      sidenav.addClass('sidenav--open');
+      sidenav.removeClass('sidenav--closed');
+      container.removeClass('page-container__main--nav-closed');
+      container.addClass('page-container__main--nav-open');
+      header.removeClass('main-header--nav-closed');
+      header.addClass('main-header--nav-open');
+      return;
+    }
+
+    sidenav.removeClass('sidenav--open');
+    sidenav.addClass('sidenav--closed');
+    container.addClass('page-container__main--nav-closed');
+    container.removeClass('page-container__main--nav-open');
+    header.addClass('main-header--nav-closed');
+    header.removeClass('main-header--nav-open');
+  });
 });
 
 /***/ }),
@@ -661,6 +697,47 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./public/assets/js/src/helpers/date.js":
+/*!**********************************************!*\
+  !*** ./public/assets/js/src/helpers/date.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getStaticDate": () => (/* binding */ getStaticDate)
+/* harmony export */ });
+const getMonths = () => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const makeTime = date => {
+  let hours = date.getHours(),
+      minutes = date.getMinutes();
+  hours = hours < 10 ? '0' + hours : hours;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+  let time = hours + ':' + minutes,
+      day = date.getDate(),
+      month = getMonths()[date.getMonth()],
+      year = date.getFullYear().toString();
+  return {
+    time,
+    day,
+    month,
+    year
+  };
+};
+
+const getStaticDate = date => {
+  const {
+    time,
+    day,
+    month,
+    year
+  } = makeTime(date);
+  return `${time}, ${day} ${month} ${year[2] + year[3]}'`;
+};
+
+/***/ }),
+
 /***/ "./public/assets/js/src/helpers/fetch.js":
 /*!***********************************************!*\
   !*** ./public/assets/js/src/helpers/fetch.js ***!
@@ -702,6 +779,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "formatPoliceStations": () => (/* binding */ formatPoliceStations),
 /* harmony export */   "formatResidentReports": () => (/* binding */ formatResidentReports)
 /* harmony export */ });
+/* harmony import */ var _date__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./date */ "./public/assets/js/src/helpers/date.js");
+
 const formatPoliceStations = policeStations => {
   let formated = '',
       index = 1;
@@ -711,7 +790,7 @@ const formatPoliceStations = policeStations => {
                 <li class="table__body__row__item short">${index}</li>
                 <li class="table__body__row__item">${policeStation.name}</li>
                 <li class="table__body__row__item">${policeStation.address}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${(0,_date__WEBPACK_IMPORTED_MODULE_0__.getStaticDate)(new Date(policeStation.createdAt))}</li>
                 <li class="table__body__row__item table__body__row__item--tools pos--abs pos--vertical">
                     <span class="table__body__row__item__edit">
                         <svg class="image--icon">
@@ -740,7 +819,7 @@ const formatResidentReports = reports => {
                 <li class="table__body__row__item">${report.typeOfCrime}</li>
                 <li class="table__body__row__item">${report.assignedPoliceStation.name}</li>
                 <li class="table__body__row__item">${report.statusForResident}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${(0,_date__WEBPACK_IMPORTED_MODULE_0__.getStaticDate)(new Date(report.createdAt))}</li>
             </ul>
         `;
     index++;
@@ -757,7 +836,7 @@ const formatPoliceReports = reports => {
                 <li class="table__body__row__item">${report.typeOfCrime}</li>
                 <li class="table__body__row__item">${report.resident.firstname + ' ' + report.resident.lastname}</li>
                 <li class="table__body__row__item">${report.statusForPolice}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${(0,_date__WEBPACK_IMPORTED_MODULE_0__.getStaticDate)(new Date(report.createdAt))}</li>
             </ul>
         `;
     index++;
@@ -774,7 +853,14 @@ const formatAdminResidents = residents => {
                 <li class="table__body__row__item">${resident.firstname}</li>
                 <li class="table__body__row__item">${resident.lastname}</li>
                 <li class="table__body__row__item">${resident.email}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${(0,_date__WEBPACK_IMPORTED_MODULE_0__.getStaticDate)(new Date(resident.createdAt))}</li>
+                <li class="table__body__row__item table__body__row__item--tools pos--abs pos--vertical">
+                    <span class="table__body__row__item__delete">
+                        <svg class="image--icon">
+                            <use href="#cancel"></use>
+                        </svg>
+                    </span>
+                </li>
             </ul>
         `;
     index++;
@@ -792,7 +878,7 @@ const formatAdminReports = reports => {
                 <li class="table__body__row__item">${report.resident.firstname + ' ' + report.resident.lastname}</li>
                 <li class="table__body__row__item">${report.assignedPoliceStation.name}</li>
                 <li class="table__body__row__item">${report.statusForPolice}</li>
-                <li class="table__body__row__item last-cell">Date</li>
+                <li class="table__body__row__item last-cell">${(0,_date__WEBPACK_IMPORTED_MODULE_0__.getStaticDate)(new Date(report.createdAt))}</li>
             </ul>
         `;
     index++;
