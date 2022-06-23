@@ -79,6 +79,16 @@ class ResidentController {
             return response;
         }, res);
     });
+
+    searchAdminResidents = (searchAdminResidents) => (async (req, res) => {
+        await this._resWrap(async (response) => {
+            const residents = await searchAdminResidents(req.query.q);
+
+            response.residents = residents;
+
+            return response;
+        }, res);
+    });
 };
 
 module.exports = ResidentController;

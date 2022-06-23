@@ -20,6 +20,15 @@ export default async () => {
 
     $('#registered-police-stations').html(await PoliceStation.getPoliceStations());
 
+    $('#police-stations-search-box').on('keyup', async e => {
+        const searchValue = e.currentTarget.value;
+
+        if (searchValue.length < 3)
+            return $('#registered-police-stations').html(await PoliceStation.getPoliceStations())
+
+        $('#registered-police-stations').html(await PoliceStation.searchAdminPoliceStations(searchValue))
+    });
+
     $('.table__body__row__item__delete').on('click', async e => {
         const policeStationId = e.currentTarget.parentElement.parentElement.dataset.policestationid;
 
@@ -31,10 +40,10 @@ export default async () => {
 
         const policeAdmin = await Policeman.getPoliceAdminByStation(policeStationId);
 
-        $('#edit-police-station-name').val(policeAdmin.policeStation.name);
-        $('#edit-police-station-id').val(policeAdmin.policeStation._id);
+        $('#edit-police-station-name').val(policeAdmin.policeStationID.name);
+        $('#edit-police-station-id').val(policeAdmin.policeStationID._id);
         $('#edit-police-man-id').val(policeAdmin._id);
-        $('#edit-police-station-address').val(policeAdmin.policeStation.address);
+        $('#edit-police-station-address').val(policeAdmin.policeStationID.address);
         $('#edit-pol-admin-first-name').val(policeAdmin.firstname);
         $('#edit-pol-admin-last-name').val(policeAdmin.lastname);
         $('#edit-pol-admin-email').val(policeAdmin.email);

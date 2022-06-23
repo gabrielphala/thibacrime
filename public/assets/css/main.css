@@ -512,6 +512,39 @@ li {
   height: 3rem;
   width: 3rem;
 }
+.home-header {
+  position: fixed;
+  top: 0;
+  height: 5rem;
+  padding: 0 3rem;
+  width: 100%;
+  color: #fff;
+  transition: 0.3s width;
+  z-index: 2;
+}
+.home-header h4 {
+  letter-spacing: 0.4rem;
+}
+.home-header a:first-child {
+  margin-right: 1rem;
+}
+.showcase {
+  position: relative;
+  height: 40rem;
+  color: #fff;
+}
+.showcase__background {
+  height: 40rem;
+  filter: brightness(0.5);
+}
+.showcase__caption {
+  position: absolute;
+  bottom: 2rem;
+  left: 3rem;
+}
+.showcase__caption h1 {
+  flex-direction: column;
+}
 .sidenav {
   position: fixed;
   height: 100%;
@@ -592,6 +625,16 @@ li {
   position: absolute;
   right: 1.4rem;
   top: 2.8rem;
+}
+.logger__container__main__form__login-options__option {
+  flex: 1;
+  padding: 1rem 0;
+}
+.logger__container__main__form__login-options__option--active {
+  background-color: #ddd;
+}
+.logger__container__main__form__login-options__option p {
+  text-align: center;
 }
 .logger__container__main__footer {
   margin-top: 2rem;

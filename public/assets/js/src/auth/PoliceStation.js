@@ -1,6 +1,7 @@
 import fetch from "../helpers/fetch";
 import showError from "../helpers/show-error";
 import { formatPoliceStations } from "../helpers/format";
+import { isAlpha, isEmail } from "../helpers/validation";
 
 class PoliceStation {
     static async addPoliceStation () {
@@ -16,6 +17,36 @@ class PoliceStation {
                 adminLastname: $('#pol-admin-last-name').val(),
                 adminEmail: $('#pol-admin-email').val()
             }
+
+            if (policeStationDetails.policeStationName == '')
+                throw 'Police name cannot be empty!'
+
+            else if ("`~!@#$%^&*()+=[]{};:'<>,./?|\\\"1234567890".includes(policeStationDetails.policeStationName))
+                throw 'Police name should not include special characters or numbers';
+
+            if (policeStationDetails.policeStationAddress == '')
+                throw 'Police address cannot be empty';
+
+            else if ("`~!@#$%^&*()+=[]{};:<>./?|\\".includes(policeStationDetails.policeStationAddress))
+                throw 'Police address should not include special characters execept \' or ,';
+
+            if (policemanDetails.adminFirstname == '')
+                throw 'First name cannot be empty';
+
+            else if (!isAlpha(policemanDetails.adminFirstname))
+                throw 'First name should only have letters';
+
+            if (policemanDetails.adminLastname == '')
+                throw 'Last name cannot be empty';
+
+            else if (!isAlpha(policemanDetails.adminLastname))
+                throw 'Last name should only have letters';
+
+            if (policemanDetails.adminEmail == '')
+                throw 'Email cannot be empty';
+
+            else if (!isEmail(policemanDetails.adminEmail))
+                throw 'Email is invalid';
 
             if (!targetPoliceStation)
                 throw 'Select police station';
@@ -40,14 +71,42 @@ class PoliceStation {
             policeStationAddress: $('#edit-police-station-address').val()
         };
 
-        
-
         const policemanDetails = {
             adminFirstname: $('#edit-pol-admin-first-name').val(),
             adminLastname: $('#edit-pol-admin-last-name').val(),
             adminEmail: $('#edit-pol-admin-email').val(),
             policemandId: $('#edit-police-man-id').val()
         }
+
+        if (policeStationDetails.policeStationName == '')
+            throw 'Police name cannot be empty!'
+
+        else if ("`~!@#$%^&*()+=[]{};:'<>,./?|\\\"1234567890".includes(policeStationDetails.policeStationName))
+            throw 'Police name should not include special characters or numbers';
+
+        if (policeStationDetails.policeStationAddress == '')
+            throw 'Police address cannot be empty';
+
+        else if ("`~!@#$%^&*()+=[]{};:<>./?|\\".includes(policeStationDetails.policeStationAddress))
+            throw 'Police address should not include special characters execept \' or ,';
+
+        if (policemanDetails.adminFirstname == '')
+            throw 'First name cannot be empty';
+
+        else if (!isAlpha(policemanDetails.adminFirstname))
+            throw 'First name should only have letters';
+
+        if (policemanDetails.adminLastname == '')
+            throw 'Last name cannot be empty';
+
+        else if (!isAlpha(policemanDetails.adminLastname))
+            throw 'Last name should only have letters';
+
+        if (policemanDetails.adminEmail == '')
+            throw 'Email cannot be empty';
+
+        else if (!isEmail(policemanDetails.adminEmail))
+            throw 'Email is invalid';
 
         const response = await fetch(`/police-station/${$('#edit-police-station-id').val()}/update`, {
             body: {
@@ -81,10 +140,29 @@ class PoliceStation {
     static async getPoliceStations () {
         const response = await fetch('/police-stations/fetch');
 
-        if (!response.policeStations || response.policeStations && response.policeStations.length == 0)
-            $('#no-police-stations').show()
+        if (response.policeStations && response.policeStations.length > 0) {
+            $('#registered-police-stations').show()
+            $('#no-police-stations').hide()
 
-        return formatPoliceStations(response.policeStations);
+            return formatPoliceStations(response.policeStations);
+        }
+
+        $('#registered-police-stations').hide()
+        $('#no-police-stations').show()
+    }
+
+    static async searchAdminPoliceStations (searchValue) {
+        const response = await fetch(`/police-stations/search/admin?q=${searchValue}`);
+
+        if (response.policeStations && response.policeStations.length > 0) {
+            $('#registered-police-stations').show()
+            $('#no-police-stations').hide()
+
+            return formatPoliceStations(response.policeStations);
+        }
+
+        $('#registered-police-stations').hide()
+        $('#no-police-stations').show()
     }
 }
 

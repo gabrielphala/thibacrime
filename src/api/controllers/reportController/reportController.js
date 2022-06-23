@@ -21,9 +21,25 @@ class ReportController {
         }, res);
     });
 
+    searchResidentReports = (searchResidentReports) => (async (req, res) => {
+        await this._resWrap(async (response) => {
+            response.reports = await searchResidentReports(req.query.q, req.residentInfo._id);
+
+            return response;
+        }, res);
+    });
+
     getPoliceReports = (getPoliceReports) => (async (req, res) => {
         await this._resWrap(async (response) => {
-            response.reports = await getPoliceReports(req.policeInfo.policeStation);
+            response.reports = await getPoliceReports(req.policeInfo.policeStationID);
+
+            return response;
+        }, res);
+    });
+
+    searchPoliceReports = (searchPoliceReports) => (async (req, res) => {
+        await this._resWrap(async (response) => {
+            response.reports = await searchPoliceReports(req.query.q, req.policeInfo.policeStationID);
 
             return response;
         }, res);
@@ -37,9 +53,17 @@ class ReportController {
         }, res);
     });
 
+    searchAdminReports = (searchAdminReports) => (async (req, res) => {
+        await this._resWrap(async (response) => {
+            response.reports = await searchAdminReports(req.query.q);
+
+            return response;
+        }, res);
+    });
+
     investigateReport = (investigateReport) => (async (req, res) => {
         await this._resWrap(async (response) => {
-            await investigateReport(req.params.reportId, req.policeInfo._id);
+            await investigateReport(req.params.reportId, req.policeInfo._id, req.policeInfo.ref);
 
             response.successful = true;
 

@@ -1,0 +1,41 @@
+<div class="page-container">
+    <%- include('../partials/sidenav/admin') %>
+        
+    <div class="page-container__main page-container__main--nav-closed">
+        <%- include('../partials/header/admin') %>
+
+        <div class="page-container__main__page-title">
+            <h1>Policemen</h1>
+        </div>
+
+        <div class="page-container__main__padded" style="margin: 2rem 5%;">
+            <div class="search" style="margin-bottom: 2rem;">
+                <div class="input-wrapper">
+                    <input type="text" id="policemen-search-box" class="input-wrapper__input" placeholder="Search by first name, last name, email address or role">
+                </div>
+            </div>
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item short">#</li>
+                        <li class="table__header__row__item">First name</li>
+                        <li class="table__header__row__item">Last name</li>
+                        <li class="table__header__row__item">Email address</li>
+                        <li class="table__header__row__item">Role (type)</li>
+                        <li class="table__header__row__item">Police station</li>
+                        <li class="table__header__row__item last-cell">Join date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="policemen"></div>
+            </div>
+            <div class="empty" style="display: none" id="no-policemen">
+                <h4>Nothing to see here.</h4>
+                <p>No police station accounts at the moment.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const targetPage = 'admin-policemen';
+</script>

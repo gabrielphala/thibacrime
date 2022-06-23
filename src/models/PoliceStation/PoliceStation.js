@@ -1,10 +1,11 @@
 const Model = require('../Model');
 
 class PoliceStation extends Model {
-    constructor(mongoose, QueryBuilder) {
+    constructor(mongoose, QueryBuilder, parseRegex) {
         const schema = new mongoose.Schema({
             name: { type: String, required: true },
             address: { type: String, required: true },
+            ref: { type: String, required: true },
             location: {
                 lat: { type: String, required: true },
                 lng: { type: String, required: true }
@@ -14,6 +15,8 @@ class PoliceStation extends Model {
         });
 
         super(mongoose, 'PoliceStation', QueryBuilder, schema);
+
+        this.parseRegex = parseRegex;
     };
 
     getAll = (select = '') => this.model.find({
@@ -30,6 +33,14 @@ class PoliceStation extends Model {
         { _id },
         data
     );
+
+    searchPoliceStation = (query, select = '') => this.model.findWithOr({
+        condition: [
+            { name: { $regex: this.parseRegex(`/${query}/i`) }, isDeleted: false },
+            { address: { $regex: this.parseRegex(`/${query}/i`) }, isDeleted: false }
+        ],
+        select
+    })
 };
 
 module.exports = PoliceStation;

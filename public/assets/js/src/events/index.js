@@ -1,11 +1,13 @@
 import admin from "./admin";
 import resident from "./resident";
 import police from "./police";
+import signIn from "./sign-in";
 
 export default () => {
     admin();
     resident();
     police();
+    signIn();
 
     $('.sidenav__top__item__icon--toggle-menu').on('click', e => {
         const sidenav = $('.sidenav'),

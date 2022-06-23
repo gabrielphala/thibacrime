@@ -4,6 +4,7 @@ const Policeman = require('../models/Policeman');
 const { hash } = require('../helpers/Hasher');
 
 const v = require('../helpers/Validation');
+const { randomString } = require('../helpers/String');
 
 class PoliceStationServices {
     static async add (policeStationDetails, policemanDetails) {
@@ -19,10 +20,23 @@ class PoliceStationServices {
             if (!policeStationDetails.location)
                 throw 'Please select police station location';
 
+            // if name exists but doesn't already belong to this police station, throw error
+            if (await PoliceStation.exists({ name: policeStationDetails.name }))
+                throw `An account with this name: ${policeStationDetails.name} already exists!`;
+
+            // if address exists but doesn't already belong to this police station, throw error
+            if (await PoliceStation.exists({ address: policeStationDetails.address }))
+                throw `An account with this address: ${policeStationDetails.address} already exists!`;
+
+            if (await Policeman.exists({ email: policemanDetails.email }))
+                throw `An account with this email: ${policemanDetails.email} already exists!`;
+
+            policeStationDetails.ref = randomString('STATION');
             const newPoliceStation = await PoliceStation.add(policeStationDetails);
 
             policemanDetails.type = 'admin';
-            policemanDetails.policeStation = newPoliceStation._id;
+            policemanDetails.policeStationID = newPoliceStation._id;
+            policemanDetails.ref = randomString('ADMIN');
             policemanDetails.password = await hash('Password123');
 
             await Policeman.add(policemanDetails);
@@ -83,6 +97,12 @@ class PoliceStationServices {
     static async getPoliceStationDetails (policeStationId) {
         try {
             return await PoliceStation.getPoliceStationDetails(policeStationId);
+        } catch (e) { throw e; }
+    };
+
+    static async searchAdminPoliceStations (query) {
+        try {
+            return await PoliceStation.searchPoliceStation(query);
         } catch (e) { throw e; }
     };
 };

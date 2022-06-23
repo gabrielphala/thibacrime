@@ -5,8 +5,8 @@ class PoliceAuth {
     static async signIn () {
         const response = await fetch('/admin/sign-in', {
             body: {
-                email: $('#admin-email-address').val(),
-                password: $('#admin-password').val()
+                email: $('#email-address').val(),
+                password: $('#password').val()
             }
         });
 
@@ -16,7 +16,7 @@ class PoliceAuth {
             return;
         }
 
-        showError('admin-sign-in-error', response.error);
+        showError('sign-in-error', response.error);
     }
 }
 

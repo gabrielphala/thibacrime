@@ -3,7 +3,7 @@ const Resident = require('../models/Resident');
 const { hash, isSame } = require('../helpers/Hasher');
 const Jwt = require('../helpers/Jwt');
 const v = require('../helpers/Validation');
-const { urlSafe } = require('../helpers/String');
+const { urlSafe, randomString } = require('../helpers/String');
 
 class ResidentServices {
     static async signIn ({email, password}) {
@@ -50,6 +50,7 @@ class ResidentServices {
             delete residentDetails.passwordConfirmation;
             residentDetails.password = await hash(residentDetails.password);
 
+            residentDetails.ref = randomString('RES')
             const newResident = await Resident.add(residentDetails);
 
             const jwtAccess = Jwt.getAccessToken(newResident.toJSON());
@@ -74,6 +75,12 @@ class ResidentServices {
     static async deleteResident (residentId) {
         try {
             return Resident.delete(residentId);
+        } catch (e) { throw e; }
+    };
+
+    static async searchAdminResidents (query) {
+        try {
+            return Resident.searchResident(query);
         } catch (e) { throw e; }
     };
 };

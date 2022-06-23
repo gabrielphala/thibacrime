@@ -11,4 +11,13 @@ export default async () => {
     });
 
     $('#reported-crimes').html(await Report.getResidentReports());
+
+    $('#reports-search-box').on('keyup', async e => {
+        const searchValue = e.currentTarget.value;
+
+        if (searchValue.length < 3)
+            return $('#reported-crimes').html(await Report.getResidentReports())
+
+        $('#reported-crimes').html(await Report.searchResidentReports(searchValue))
+    });
 };

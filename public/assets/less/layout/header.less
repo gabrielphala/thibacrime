@@ -68,3 +68,43 @@
         }
     }
 }
+
+.home-header {
+    position: fixed;
+    top: 0;
+    height: 5rem;
+    padding: 0 3rem;
+    width: 100%;
+    color: #fff;
+    transition: .3s width;
+    z-index: 2;
+
+    h4{
+        letter-spacing: .4rem;
+    }
+
+    a:first-child{
+        margin-right: 1rem;
+    }
+}
+
+.showcase{
+    position: relative;
+    height: 40rem;
+    color: #fff;
+
+    &__background{
+        height: 40rem;
+        filter: brightness(.5);
+    }
+
+    &__caption{
+        position: absolute;
+        bottom: 2rem;
+        left: 3rem;
+
+        h1{
+            flex-direction: column;
+        }
+    }
+}

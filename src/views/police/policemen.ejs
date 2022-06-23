@@ -1,0 +1,122 @@
+<div class="page-container">
+    <%- include('../partials/sidenav/police') %>
+
+    <div class="page-container__main page-container__main--nav-closed">
+        <%- include('../partials/header/police') %>
+
+        <div class="page-container__main__page-title">
+            <h1>Policemen</h1>
+        </div>
+
+        <div class="page-container__main__padded">
+            <div class="search" style="margin-bottom: 2rem;">
+                <div class="input-wrapper">
+                    <input type="text" id="policemen-search-box" class="input-wrapper__input" placeholder="Search by first name, last name, email address or role">
+                </div>
+            </div>
+            <div class="card table">
+                <div class="table__header">
+                    <ul class="table__header__row">
+                        <li class="table__header__row__item short">#</li>
+                        <li class="table__header__row__item">First name</li>
+                        <li class="table__header__row__item">Last name</li>
+                        <li class="table__header__row__item">Email address</li>
+                        <li class="table__header__row__item">Role (type)</li>
+                        <li class="table__header__row__item last-cell">Join date</li>
+                    </ul>
+                </div>
+                <div class="table__body" id="policemen"></div>
+            </div>
+            <div class="empty" style="display: none" id="no-policemen">
+                <h4>Nothing to see here.</h4>
+                <p>No results found.</p>
+            </div>
+            <button class="btn btn--primary open-modal" style="margin-top: 2rem;" data-modal="new-policeman">New Policeman</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal--closed flex--a-start flex--j-center" id="new-policeman-modal">
+    <form class="modal__main" id="new-policeman-form" style="margin-top: -3.5rem;">
+        <div class="modal__main__header flex flex--a-center flex--j-space-between">
+            <div>
+                <h1>Add policeman</h1>
+            </div>
+            <svg class="icon svg close-modal" data-modal="new-policeman">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="error-container error-container--pad" id="new-policeman-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <div class="modal__main__body modal__main__body--short" style="padding: 1.4rem 2rem;">
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="pol-first-name">First name</label>
+                    <input type="text" id="pol-first-name" class="input-wrapper__input" placeholder="John">
+                </div>
+                <div class="input-wrapper">
+                    <label for="pol-last-name">Last name</label>
+                    <input type="text" id="pol-last-name" class="input-wrapper__input" placeholder="Doe">
+                </div>
+            </div>
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="pol-email">Email address</label>
+                    <input type="text" id="pol-email" class="input-wrapper__input" placeholder="johndoe@gmail.com">
+                </div>
+            </div>
+        </div>
+        <div class="modal__main__footer flex">
+            <button class="btn btn--primary">Add policeman</button>
+        </div>
+    </form>
+</div>
+
+<div class="modal modal--closed flex--a-start flex--j-center" id="edit-policeman-modal">
+    <form class="modal__main" id="edit-policeman-form" style="margin-top: -3.5rem;">
+        <div class="modal__main__header flex flex--a-center flex--j-space-between">
+            <div>
+                <h1>Edit policeman</h1>
+            </div>
+            <svg class="icon svg close-modal" data-modal="edit-policeman">
+                <use href="#cross"></use>
+            </svg>
+        </div>
+        <div class="error-container error-container--pad" id="edit-policeman-error">
+            <p class="error-container__p">
+                <span class="error-container__p__exclamation">Oops.</span>
+                <span class="error-container__p__text"></span>
+            </p>
+        </div>
+        <div class="modal__main__body modal__main__body--short" style="padding: 1.4rem 2rem;">
+            <input type="hidden" id="edit-id">
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="edit-pol-first-name">First name</label>
+                    <input type="text" id="edit-pol-first-name" class="input-wrapper__input" placeholder="John">
+                </div>
+                <div class="input-wrapper">
+                    <label for="edit-pol-last-name">Last name</label>
+                    <input type="text" id="edit-pol-last-name" class="input-wrapper__input" placeholder="Doe">
+                </div>
+            </div>
+            <div class="twin-inputs flex flex--j-space-between">
+                <div class="input-wrapper">
+                    <label for="edit-pol-email">Email address</label>
+                    <input type="text" id="edit-pol-email" class="input-wrapper__input" placeholder="johndoe@gmail.com">
+                </div>
+            </div>
+        </div>
+        <div class="modal__main__footer flex">
+            <button class="btn btn--primary">Edit policeman</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    const targetPage = 'police-policemen';
+</script>

@@ -8,24 +8,17 @@
             <h1>Reports</h1>
         </div>
 
-        <nav class="page-container__main__page-nav">
-            <ul class="page-container__main__page-nav__ul flex flex--a-center">
-                <li class="page-container__main__page-nav__ul__item">Search</li>
-                <li class="page-container__main__page-nav__ul__item">Pending</li>
-            </ul>
-        </nav>
-
         <div class="page-container__main__padded">
             <div class="search" style="margin-bottom: 2rem;">
                 <div class="input-wrapper">
-                    <input type="text" id="admin-identifier" class="input-wrapper__input" placeholder="Search">
+                    <input type="text" id="reports-search-box" class="input-wrapper__input" placeholder="Search by type of crime, status and reporter first name or last name">
                 </div>
             </div>
             <div class="card table">
                 <div class="table__header">
                     <ul class="table__header__row">
                         <li class="table__header__row__item short">#</li>
-                        <li class="table__header__row__item">Crime</li>
+                        <li class="table__header__row__item">Type of crime</li>
                         <li class="table__header__row__item">Reported By</li>
                         <li class="table__header__row__item">Status</li>
                         <li class="table__header__row__item last-cell">Report date</li>
@@ -35,9 +28,9 @@
             </div>
         </div>
         <div class="empty" style="display: none" id="no-reports">
-                <h4>Nothing to see here.</h4>
-                <p>No reported cases at the moment.</p>
-            </div>
+            <h4>Nothing to see here.</h4>
+            <p>No reported cases at the moment.</p>
+        </div>
     </div>
 </div>
 
@@ -69,6 +62,9 @@
         </div>
     </div>
 </div>
+
+<% key = 'AIzaSyCExDeX8n3rl2wwEKVuL1XoKLSzyWq33HU' %>
+<% googleApiUrl = `https://maps.googleapis.com/maps/api/js?key=${key}` %>
 
 <script>
     const targetPage = 'police-reports';
@@ -105,4 +101,4 @@
         })
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCExDeX8n3rl2wwEKVuL1XoKLSzyWq33HU"></script>
+<script src="<%= googleApiUrl %>"></script>

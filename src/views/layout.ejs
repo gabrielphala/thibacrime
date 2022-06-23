@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     
     <%- defineContent('head')  %>
-    
+    <script src="/assets/js/dist/lib/jquery/jquery.js"></script>
     <title>thibacrime | <%= page.title %> </title>
 </head>
 <body <% if (page.background) { %> style="background-color: <%= page.background %>;" <% } %>>
@@ -14,7 +14,6 @@
     
     <%- body %>
 
-    <script src="/assets/js/dist/lib/jquery/jquery.js"></script>
     <script src="/assets/js/dist/app.bundle.js"></script>
 </body>
 </html>

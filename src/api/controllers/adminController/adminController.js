@@ -35,6 +35,14 @@ class AdminController {
         });
     };
 
+    renderPolicemen (_req, res) {
+        res.render('admin/policemen', {
+            page: {
+                title: 'Policemen'
+            }
+        });
+    };
+
     signIn = (signIn) => (async (req, res) => {
         await this._resWrap(async (response) => {
             const { tokens, redirect } = await signIn({

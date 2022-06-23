@@ -7,4 +7,5 @@ module.exports = (router) => {
     router.post('/police-station/:policeStationId/update', policeStationController.editPoliceStation(policeStationServices.editPoliceStation));
     router.post('/police-station/:policeStationId/delete', policeStationController.deletePoliceStation(policeStationServices.deletePoliceStation));
     router.post('/police-stations/fetch', policeStationController.getAll(policeStationServices.getAll));
+    router.post('/police-stations/search/admin', policeStationController.searchAdminPoliceStations(policeStationServices.searchAdminPoliceStations));
 };

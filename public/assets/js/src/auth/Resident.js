@@ -1,6 +1,7 @@
 import fetch from "../helpers/fetch";
 import { formatAdminResidents } from "../helpers/format";
 import showError from "../helpers/show-error";
+import { isAlpha, isEmail } from "../helpers/validation";
 
 class ResidentAuth {
     static async signUp () {
@@ -11,23 +12,42 @@ class ResidentAuth {
             password: $('#res-password').val(),
             passwordConfirmation: $('#res-con-password').val()
         };
-        
 
-        const response = await fetch('/resident/sign-up', { body: residentDetails });
+        try {
+            if (residentDetails.firstname == '')
+                throw 'First name cannot be empty'
 
-        if (response.successful) {
-            location.href = response.redirect;
-        
-            return;
-        }
-            
-        showError('resident-sign-up-error', response.error);
+            else if (!isAlpha(residentDetails.firstname))
+                throw 'First name contains numbers or special characters';
+
+            if (residentDetails.lastname == '')
+                throw 'Last name cannot be empty'
+
+            else if (!isAlpha(residentDetails.lastname))
+                throw 'Last name contains numbers or special characters';
+
+            if (residentDetails.email == '')
+                throw 'Email cannot be empty'
+
+            else if (!isEmail(residentDetails.email))
+                throw 'Email is invalid';
+
+            const response = await fetch('/resident/sign-up', { body: residentDetails });
+
+            if (response.successful) {
+                location.href = response.redirect;
+
+                return;
+            }
+
+            throw response.error;
+        } catch (e) { showError('resident-sign-up-error', e); }
     };
 
     static async signIn () {
         const residentDetails = {
-            email: $('#res-email-address').val(),
-            password: $('#res-password').val()
+            email: $('#email-address').val(),
+            password: $('#password').val()
         };
 
         const response = await fetch('/resident/sign-in', { body: residentDetails });
@@ -38,19 +58,36 @@ class ResidentAuth {
             return;
         }
 
-        showError('resident-sign-in-error', response.error);
+        showError('sign-in-error', response.error);
     };
 
     static async getAdminResidents () {
         const response = await fetch('/residents/fetch/all');
 
-        console.log(response.residents);
+        if (response.residents && response.residents.length > 0) {
+            $('#residents').show()
+            $('#no-residents').hide()
 
-        if (!response.residents || response.residents && response.residents.length == 0)
-            $('#no-residents').show()
+            return formatAdminResidents(response.residents);
+        }
 
-        return formatAdminResidents(response.residents);
+        $('#residents').hide()
+        $('#no-residents').show()
     };
+
+    static async searchAdminResidents (searchValue) {
+        const response = await fetch(`/residents/search/admin?q=${searchValue}`);
+
+        if (response.residents && response.residents.length > 0) {
+            $('#residents').show()
+            $('#no-residents').hide()
+
+            return formatAdminResidents(response.residents);
+        }
+
+        $('#residents').hide()
+        $('#no-residents').show()
+    }
 
     static async deleteResident (residentId) {
         const response = await fetch(`/resident/${residentId}/delete`);

@@ -10,7 +10,7 @@ class Middleware {
 
     authAdmin = (req, res, next) => {
         if (!req.adminInfo) 
-            return res.redirect('/a/sign-in');
+            return res.redirect('/sign-in');
 
         next();
     }
@@ -24,7 +24,7 @@ class Middleware {
 
     authPolice = (req, res, next) => {
         if (!req.policeInfo)
-            return res.redirect('/p/sign-in');
+            return res.redirect('/sign-in');
 
         next();
     }

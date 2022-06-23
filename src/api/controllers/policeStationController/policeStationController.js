@@ -77,6 +77,16 @@ class PoliceStationController {
             return response;
         }, res);
     });
+
+    searchAdminPoliceStations = (searchAdminPoliceStations) => (async (req, res) => {
+        await this._resWrap(async (response) => {
+            const policeStations = await searchAdminPoliceStations(req.query.q);
+
+            response.policeStations = policeStations;
+
+            return response;
+        }, res);
+    });
 };
 
 module.exports = PoliceStationController;

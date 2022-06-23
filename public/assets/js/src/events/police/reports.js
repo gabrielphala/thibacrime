@@ -6,12 +6,21 @@ export default async () => {
 
     $('#reported-crimes').html(await Report.getPoliceReports());
 
+    $('#reports-search-box').on('keyup', async e => {
+        const searchValue = e.currentTarget.value;
+
+        if (searchValue.length < 3)
+            return $('#reported-crimes').html(await Report.getPoliceReports())
+
+        $('#reported-crimes').html(await Report.searchPoliceReports(searchValue))
+    });
+
     $('.open-pol-report-modal').on('click', (e) => {
         const reportdata = JSON.parse(e.currentTarget.dataset.reportdata);
 
         $('#report-id').val(reportdata._id);
         $('#crime-type').text(reportdata.typeOfCrime);
-        $('#crime-reporter').text(reportdata.resident.firstname + ' ' + reportdata.resident.lastname);
+        $('#crime-reporter').text(reportdata.residentID.firstname + ' ' + reportdata.residentID.lastname);
 
         $('#crime-report-modal').removeClass('modal--closed');
 

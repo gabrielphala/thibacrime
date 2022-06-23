@@ -90,6 +90,33 @@ class QueryBuilder {
         });
     });
 
+    findWithOr = ({ condition, populate, limit, skip, sort = { createdAt: -1 }, select }) => {
+        return new Promise((resolve, reject) => {
+            let __find = this._model.find().or(condition);
+            __find.select(select);
+            __find.sort(sort);
+
+            if (limit)
+                __find.limit(limit);
+
+            if (skip)
+                __find.skip(skip);
+
+            if (populate)
+                populate.forEach(field => {
+                    __find.populate(field[0], field[1]);
+                })
+
+            __find.select(select)
+                .exec((err, data) => {
+                    if (err == null)
+                        resolve(data);
+                    else
+                        reject(err);
+                })
+        });
+    }
+
     find = (query) => this._execFind({
         find: this._getAllDocs(query.condition),
         select: query.select || '',

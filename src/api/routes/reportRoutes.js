@@ -23,6 +23,10 @@ module.exports = (router) => {
     router.post('/reports/fetch/police', reportController.getPoliceReports(reportServices.getPoliceReports));
     router.post('/reports/fetch/all', reportController.getAllReports(reportServices.getAllReports));
 
+    router.post('/reports/search/admin', reportController.searchAdminReports(reportServices.searchAdminReports));
+    router.post('/reports/search/police', reportController.searchPoliceReports(reportServices.searchPoliceReports));
+    router.post('/reports/search/resident', reportController.searchResidentReports(reportServices.searchResidentReports));
+
     router.post('/report/:reportId/investigate', reportController.investigateReport(reportServices.investigateReport));
     router.post('/report/:reportId/decline', reportController.declineReport(reportServices.declineReport));
 };
